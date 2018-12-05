@@ -18,10 +18,8 @@ public class robo {
 	public static File arquivoCSV = new File("dados\\robo.csv");
 	public static int i=1;
 	
-	@Before
-	public static void login() {
-
-		try {
+	public static void main(String[] args) {
+try {
 			
 			/*ChromeOptions options = new ChromeOptions();
 			options.addArguments("start-maximized");
@@ -57,89 +55,90 @@ public class robo {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
+
+			
+try {
+	Scanner leitor = new Scanner(arquivoCSV);
+    String linhasDoArquivo = new String();
+    leitor.nextLine();
+    driver.switchTo().frame("corpoHome");	
+
+	while(leitor.hasNext()){
+	
+	try {
+	    
+	  	
+	  	//driver.switchTo().frame("corpoHome");
+		
+	    linhasDoArquivo = leitor.nextLine();
+        String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
+		
+        driver.findElement(By.id("cpfCnpj")).clear();
+        driver.findElement(By.id("cpfCnpj")).click();
+        driver.findElement(By.id("cpfCnpj")).sendKeys(valoresEntreVirgulas[1]);
+        driver.findElement(By.xpath("//*[@id=\"acoes_nav_superior\"]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"formulario\"]/table/tbody/tr/td[1]/a")).click();
+	    Thread.sleep(3000);			    
+	    driver.findElement(By.xpath("//*[@id=\"Reserva\"]")).click();
+	    Thread.sleep(3000);
+	    try {
+	    	texto = driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[4]/tbody/tr[2]/td[2]/span")).getText();						    	
+	    }catch (Exception e) {
+	    	try {
+	    		texto = driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[3]/tbody/tr[2]/td[2]/span")).getText();
+			} catch (Exception e2) {
+				texto = driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[2]/tbody/tr[2]/td[4]")).getText();
+				/*try {
+					texto = driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[2]/tbody/tr[2]/td[4]")).getText();
+				} catch (Exception e3) {
+					// TODO: handle exception
+				}*/
+			}
+	    	
+		}					 
+	    if(texto.equals("Cancelada")||texto.equals("Falhou")) {
+			        Thread.sleep(300);
+			        driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[1]/thead/tr/th[2]/img")).click();
+			        Thread.sleep(300);
+			        driver.findElement(By.xpath("//*[@id=\"AlterarP\"]")).click();
+			        Thread.sleep(300);
+			        driver.findElement(By.xpath("//*[@id=\"acoes_nav_inferior\"]/a[1]")).click();
+			        Thread.sleep(300);
+			        driver.findElement(By.xpath("//*[@id=\"acoes_nav_inferior\"]/a")).click();
+			        Thread.sleep(300);
+			        driver.findElement(By.id("valOperacaoPI")).click();
+			        Thread.sleep(300);
+			        driver.findElement(By.xpath("//*[@id=\"acoes_nav_superior\"]/a[1]")).click();
+			        Thread.sleep(300);
+			        driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[4]/tbody/tr[1]/td[2]/input")).clear();
+			        driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[4]/tbody/tr[1]/td[2]/input")).sendKeys(valoresEntreVirgulas[2]);
+			        Thread.sleep(300);
+			        driver.findElement(By.xpath("//*[@id=\"acoes_nav_superior\"]/a[1]")).click();
+			        Thread.sleep(300);
+			        driver.findElement(By.xpath("//*[@id=\"acoes_nav_inferior\"]/a[1]")).click();
+			  }     i++;
+	  }catch (Exception e) {
+		  	System.out.println(i);
+		  	driver.navigate().refresh();
+		  	driver.switchTo().frame("corpoHome");
+		  	continue;
+		  		
+	}
+	  
+	  driver.navigate().refresh();
+	  driver.switchTo().frame("corpoHome");
+	  Thread.sleep(4000);
+	  //driver.navigate().to("https://habitacao.caixa.gov.br/siopiweb-web/siopientrada.do");
+}
+	driver.close();
+} catch (Exception e) {
+System.out.println(e.getMessage());
+driver.close();
+}
+
+
+
 	}
 	
-	@Test
-	public static void test() {        
-		
-		try {
-						Scanner leitor = new Scanner(arquivoCSV);
-					    String linhasDoArquivo = new String();
-					    leitor.nextLine();
-					    driver.switchTo().frame("corpoHome");	
-		    	
-						while(leitor.hasNext()){
-						
-						try {
-						    
-						  	
-						  	//driver.switchTo().frame("corpoHome");
-							
-						    linhasDoArquivo = leitor.nextLine();
-			                String[] valoresEntreVirgulas = linhasDoArquivo.split(",");
-							
-			                driver.findElement(By.id("cpfCnpj")).clear();
-					        driver.findElement(By.id("cpfCnpj")).click();
-					        driver.findElement(By.id("cpfCnpj")).sendKeys(valoresEntreVirgulas[1]);
-					        driver.findElement(By.xpath("//*[@id=\"acoes_nav_superior\"]/a")).click();
-					        driver.findElement(By.xpath("//*[@id=\"formulario\"]/table/tbody/tr/td[1]/a")).click();
-						    Thread.sleep(3000);			    
-						    driver.findElement(By.xpath("//*[@id=\"Reserva\"]")).click();
-						    Thread.sleep(3000);
-						    try {
-						    	texto = driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[4]/tbody/tr[2]/td[2]/span")).getText();						    	
-						    }catch (Exception e) {
-						    	try {
-						    		texto = driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[3]/tbody/tr[2]/td[2]/span")).getText();
-								} catch (Exception e2) {
-									texto = driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[2]/tbody/tr[2]/td[4]")).getText();
-									/*try {
-										texto = driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[2]/tbody/tr[2]/td[4]")).getText();
-									} catch (Exception e3) {
-										// TODO: handle exception
-									}*/
-								}
-						    	
-							}					 
-						    if(texto.equals("Cancelada")||texto.equals("Falhou")) {
-								        Thread.sleep(300);
-								        driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[1]/thead/tr/th[2]/img")).click();
-								        Thread.sleep(300);
-								        driver.findElement(By.xpath("//*[@id=\"AlterarP\"]")).click();
-								        Thread.sleep(300);
-								        driver.findElement(By.xpath("//*[@id=\"acoes_nav_inferior\"]/a[1]")).click();
-								        Thread.sleep(300);
-								        driver.findElement(By.xpath("//*[@id=\"acoes_nav_inferior\"]/a")).click();
-								        Thread.sleep(300);
-								        driver.findElement(By.id("valOperacaoPI")).click();
-								        Thread.sleep(300);
-								        driver.findElement(By.xpath("//*[@id=\"acoes_nav_superior\"]/a[1]")).click();
-								        Thread.sleep(300);
-								        driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[4]/tbody/tr[1]/td[2]/input")).clear();
-								        driver.findElement(By.xpath("//*[@id=\"formulario\"]/table[4]/tbody/tr[1]/td[2]/input")).sendKeys(valoresEntreVirgulas[2]);
-								        Thread.sleep(300);
-								        driver.findElement(By.xpath("//*[@id=\"acoes_nav_superior\"]/a[1]")).click();
-								        Thread.sleep(300);
-								        driver.findElement(By.xpath("//*[@id=\"acoes_nav_inferior\"]/a[1]")).click();
-								  }     i++;
-						  }catch (Exception e) {
-							  	System.out.println(i);
-							  	driver.navigate().refresh();
-							  	driver.switchTo().frame("corpoHome");
-							  	continue;
-							  		
-						}
-						  
-						  driver.navigate().refresh();
-						  driver.switchTo().frame("corpoHome");
-						  Thread.sleep(4000);
-						  //driver.navigate().to("https://habitacao.caixa.gov.br/siopiweb-web/siopientrada.do");
-					}
-						driver.close();
-		} catch (Exception e) {
-		   System.out.println(e.getMessage());
-		   driver.close();
-		}
-	}
 
 }
